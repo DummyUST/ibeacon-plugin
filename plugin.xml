@@ -91,21 +91,11 @@
                 <param name="android-package" value="com.unarin.cordova.beacon.LocationManager"/>
             </feature>
         </config-file>
-	    
-       <config-file target="res/xml/network_security_config.xml" parent="/*">
-		<network-security-config>
-			<domain-config cleartextTrafficPermitted="true">
-			<domain includeSubdomains="true">data.altbeacon.org</domain>
-			</domain-config>
-		</network-security-config>
-	</config-file>
-	    
-        <edit-config file="AndroidManifest.xml" parent="/manifest" android:targetSandboxVersion="1">
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
 		<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-		<uses-permission android:name="android.permission.INTERNET" />
-		<application android:networkSecurityConfig="@xml/network_security_config" />
-        </edit-config>
-	    	       
+        </config-file>
+	    
         <source-file src="src/android/LocationManager.java" target-dir="src/com/unarin/cordova/beacon" />
         <source-file src="src/android/IBeaconServiceNotifier.java" target-dir="src/com/unarin/cordova/beacon" />
         <source-file src="src/android/ILocationManagerCommand.java" target-dir="src/com/unarin/cordova/beacon" />
