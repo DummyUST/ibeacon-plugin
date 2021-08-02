@@ -94,6 +94,10 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
 		<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+		<uses-permission android:name="android.permission.BLUETOOTH" />
+		<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		<uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
         </config-file>
 	    
         <source-file src="src/android/LocationManager.java" target-dir="src/com/unarin/cordova/beacon" />
