@@ -5,7 +5,7 @@
 
 
     dependencies {
-        compile 'org.altbeacon:android-beacon-library:2.18'
+        compile 'org.altbeacon:android-beacon-library:2.19'
       }
 
 
