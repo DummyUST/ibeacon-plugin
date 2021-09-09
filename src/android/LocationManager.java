@@ -39,7 +39,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
-import android.os.Bundle;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -176,8 +175,8 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     }
        
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(CordovaInterface cordova, CordovaWebView webView) {
+        super.onCreate(CordovaInterface cordova, CordovaWebView webView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 if (this.checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
