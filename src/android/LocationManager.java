@@ -18,6 +18,8 @@
 */
 package com.unarin.cordova.beacon;
 
+
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -37,6 +39,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
+import android.os.Bundle;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
