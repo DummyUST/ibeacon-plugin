@@ -157,28 +157,8 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
         //TODO AddObserver when page loaded
 
         tryToRequestMarshmallowLocationPermission();
-    }
-
-    /**
-     * The final call you receive before your activity is destroyed.
-     */
-    @Override
-    public void onDestroy() {
-        iBeaconManager.unbind(this);
-
-        if (broadcastReceiver != null) {
-            cordova.getActivity().unregisterReceiver(broadcastReceiver);
-            broadcastReceiver = null;
-        }
-
-        super.onDestroy();
-    }
-       
-    @Override
-    public void onCreate(CordovaInterface cordova, CordovaWebView webView) {
-        super.onCreate(cordova, webView);
-        iBeaconManager.bind(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+           
+                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 if (this.checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     if (this.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
@@ -237,6 +217,21 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
             }
         }
+    }
+
+    /**
+     * The final call you receive before your activity is destroyed.
+     */
+    @Override
+    public void onDestroy() {
+        iBeaconManager.unbind(this);
+
+        if (broadcastReceiver != null) {
+            cordova.getActivity().unregisterReceiver(broadcastReceiver);
+            broadcastReceiver = null;
+        }
+
+        super.onDestroy();
     }
 
     @Override
