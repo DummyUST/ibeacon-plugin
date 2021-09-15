@@ -6,9 +6,7 @@
        to you under the Apache License, Version 2.0 (the
        "License"); you may not use this file except in compliance
        with the License.  You may obtain a copy of the License at
-
          http://www.apache.org/licenses/LICENSE-2.0
-
        Unless required by applicable law or agreed to in writing,
        software distributed under the License is distributed on an
        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,8 +15,6 @@
        under the License.
 */
 package com.unarin.cordova.beacon;
-
-
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -86,9 +82,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     private static final int DEFAULT_FOREGROUND_SCAN_PERIOD = 1100;
     private static int CDV_LOCATION_MANAGER_DOM_DELEGATE_TIMEOUT = 30;
     private static final int BUILD_VERSION_CODES_M = 23;
-    private static final int PERMISSION_REQUEST_FINE_LOCATION = 1;
-    private static final int PERMISSION_REQUEST_BACKGROUND_LOCATION = 2;
-           
+
     private BeaconTransmitter beaconTransmitter;
     private BeaconManager iBeaconManager;
     private BlockingQueue<Runnable> queue;
@@ -157,66 +151,6 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
         //TODO AddObserver when page loaded
 
         tryToRequestMarshmallowLocationPermission();
-           
-                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                if (this.checkSelfPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    if (this.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setTitle("This app needs background location access");
-                        builder.setMessage("Please grant location access so this app can detect beacons in the background.");
-                        builder.setPositiveButton(android.R.string.ok, null);
-                        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                            @TargetApi(23)
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                requestPermissions(new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION},
-                                        PERMISSION_REQUEST_BACKGROUND_LOCATION);
-                            }
-
-                        });
-                        builder.show();
-                    }
-                    else {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setTitle("Functionality limited");
-                        builder.setMessage("Since background location access has not been granted, this app will not be able to discover beacons in the background.  Please go to Settings -> Applications -> Permissions and grant background location access to this app.");
-                        builder.setPositiveButton(android.R.string.ok, null);
-                        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                            }
-
-                        });
-                        builder.show();
-                    }
-
-                }
-            } else {
-                if (this.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_BACKGROUND_LOCATION},
-                            PERMISSION_REQUEST_FINE_LOCATION);
-                }
-                else {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Functionality limited");
-                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons.  Please go to Settings -> Applications -> Permissions and grant location access to this app.");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                        }
-
-                    });
-                    builder.show();
-                }
-
-            }
-        }
     }
 
     /**
@@ -232,51 +166,6 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
         }
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_FINE_LOCATION: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "fine location permission granted");
-                } else {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Functionality limited");
-                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons.");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                        }
-
-                    });
-                    builder.show();
-                }
-                return;
-            }
-            case PERMISSION_REQUEST_BACKGROUND_LOCATION: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "background location permission granted");
-                } else {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Functionality limited");
-                    builder.setMessage("Since background location access has not been granted, this app will not be able to discover beacons when in the background.");
-                    builder.setPositiveButton(android.R.string.ok, null);
-                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                        }
-
-                    });
-                    builder.show();
-                }
-                return;
-            }
-        }
     }
 
 
@@ -1459,12 +1348,10 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     /* NOT SUPPORTED */
     /*private JSONObject mapOfCircularRegion(Region region) throws JSONException {
         JSONObject dict = new JSONObject();
-
         // identifier
         if (region.getUniqueId() != null) {
        	 dict.put("identifier", region.getUniqueId());
        }
-
        //NOT SUPPORTING CIRCULAR REGIONS
        //dict.put("radius", region.getRadius());
        //JSONObject coordinates = new JSONObject();
@@ -1472,9 +1359,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
        //coordinates.put("longitude", 0.0d);
        //dict.put("center", coordinates);
        //dict.put("typeName", "CircularRegion");
-
        return dict;
-
     }*/
 
     private JSONObject mapOfBeacon(Beacon region) throws JSONException {
