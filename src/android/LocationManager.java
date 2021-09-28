@@ -158,8 +158,6 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     public void onCreate(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
            
-        final Activity cordovaActivity = cordova.getActivity();
-           
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
