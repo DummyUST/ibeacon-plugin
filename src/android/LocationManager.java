@@ -82,6 +82,7 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
     private static final int DEFAULT_FOREGROUND_SCAN_PERIOD = 1100;
     private static int CDV_LOCATION_MANAGER_DOM_DELEGATE_TIMEOUT = 30;
     private static final int BUILD_VERSION_CODES_M = 23;
+    private static final int BUILD_VERSION_CODES_10 = 29;
     private static final int PERMISSION_REQUEST_FINE_LOCATION = 1;
     private static final int PERMISSION_REQUEST_BACKGROUND_LOCATION = 2;
 
@@ -278,10 +279,13 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
         }
 
         try {
-
+            if (Build.VERSION.SDK_INT >= BUILD_VERSION_CODES_10){
+             final Integer permissionCheckResult = (Integer) checkSelfPermissionMethod.invoke(
+                    activity, Manifest.permission.ACCESS_FINE_LOCATION);
+            }
             final Integer permissionCheckResult = (Integer) checkSelfPermissionMethod.invoke(
                     activity, Manifest.permission.ACCESS_COARSE_LOCATION);
-
+            
             Log.i(TAG, "Permission check result for ACCESS_COARSE_LOCATION: " +
                     String.valueOf(permissionCheckResult));
 
